@@ -7,22 +7,15 @@
     "48": "icon.svg",
     "96": "icon.svg"
   },
+  "permissions": [
+    "*://gamesbyemail.com/*"
+  ],
   "browser_action": {
     "default_icon": {
       "19": "icon.svg",
       "38": "icon.svg"
     },
     "default_title": "Viktory Scraper",
-    "default_popup": "popup/index.html"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://gamesbyemail.com/*"
-      ],
-      "js": [
-        "scripts/index.js"
-      ]
-    }
-  ]
+    "default_popup": "popup/popup.html"
+  }
 }
