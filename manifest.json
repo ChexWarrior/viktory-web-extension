@@ -10,6 +10,12 @@
   "permissions": [
     "*://gamesbyemail.com/*"
   ],
+  "content_scripts": [
+    {
+      "matches": ["*://gamesbyemail.com/Games/Play*"],
+      "js": ["/content_scripts/indicateLog.js"]
+    }
+  ],
   "browser_action": {
     "default_icon": {
       "19": "icon.svg",
