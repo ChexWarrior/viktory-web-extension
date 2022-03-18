@@ -10,10 +10,13 @@
   "permissions": [
     "*://gamesbyemail.com/*"
   ],
+  "background": {
+    "scripts": ["/scripts/background/background.js"]
+  },
   "content_scripts": [
     {
-      "matches": ["*://gamesbyemail.com/Games/Play*"],
-      "js": ["/content_scripts/indicateLog.js"]
+      "matches": ["*://gamesbyemail.com/*"],
+      "js": ["/scripts/content/checkForLog.js"]
     }
   ],
   "browser_action": {
