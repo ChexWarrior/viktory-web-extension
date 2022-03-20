@@ -1,6 +1,6 @@
 console.log('checkForLog loaded...');
 let totalTime = 0;
-const interval = 500;
+const interval = 1000;
 const maxTime = 5000;
 
 let intervalId = setInterval(() => {
