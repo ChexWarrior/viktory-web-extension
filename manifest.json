@@ -15,7 +15,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://gamesbyemail.com/*"],
+      "matches": ["*://gamesbyemail.com/*logPopup*"],
       "js": ["/scripts/content/checkForLog.js"]
     }
   ],
