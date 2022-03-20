@@ -3,6 +3,7 @@ let totalTime = 0;
 const interval = 1000;
 const maxTime = 5000;
 
+// Check for log and add indicator to browser_action if found
 let intervalId = setInterval(() => {
   let logContainer = document.querySelector('#Foundation_Elemental_1_log');
   if (logContainer) {
@@ -22,6 +23,7 @@ let intervalId = setInterval(() => {
 
   totalTime += interval;
 }, interval);
+
 
 
 
