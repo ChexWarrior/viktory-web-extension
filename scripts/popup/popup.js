@@ -1,10 +1,14 @@
-/**
- * Check if any log windows are open:
- * If any are then enable scrape button
- * If there are none remove badgetext and disable button
- */
 const scrapeBtn = document.querySelector('#scrape');
 const gameLogTitle = 'Game Log';
+
+/**
+ * Remove all scrape buttons
+ * If one or more log windows:
+ *  Create a scrape button for each log window
+ *
+ * Else:
+ *  Remove the badge text
+ */
 browser.windows.getAll()
   .then(windows => {
     if (windows.some(w => w.title.includes(gameLogTitle))) {
@@ -15,10 +19,8 @@ browser.windows.getAll()
         text: ''
       });
     }
-  })
+  });
 
-
-// const scrapeBtn = document.querySelector('#scrape');
 // scrapeBtn.addEventListener('click', function(e) {
 //   browser.windows.getAll({ populate: true })
 //     .then(windows => {
