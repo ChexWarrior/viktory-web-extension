@@ -5,3 +5,10 @@
 
 ## How to link a log popup to a game?
 We have access to the window.opener property!
+
+## Popup
+
+### Login Screen
+TBD
+
+### Populate dropdown with games to scrape (for each open log window)

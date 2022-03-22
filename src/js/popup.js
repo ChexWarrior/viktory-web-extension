@@ -2,9 +2,7 @@ const scrapeBtn = document.querySelector('#scrape');
 const gameLogTitle = 'Game Log';
 
 /**
- * Remove all scrape buttons
- * If one or more log windows:
- *  Create a scrape button for each log window
+ * Build
  *
  * Else:
  *  Remove the badge text
