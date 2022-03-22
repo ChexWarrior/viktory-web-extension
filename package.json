@@ -1,0 +1,19 @@
+{
+  "name": "viktory-web-extension",
+  "version": "1.0.0",
+  "description": "Web extension for scraping Viktory 2 GamesByEmail games",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChexWarrior/viktory-web-extension.git"
+  },
+  "author": "ChexWarrior",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChexWarrior/viktory-web-extension/issues"
+  },
+  "homepage": "https://github.com/ChexWarrior/viktory-web-extension#readme"
+}
