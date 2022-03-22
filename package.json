@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ChexWarrior/viktory-web-extension/issues"
   },
-  "homepage": "https://github.com/ChexWarrior/viktory-web-extension#readme"
+  "homepage": "https://github.com/ChexWarrior/viktory-web-extension#readme",
+  "dependencies": {
+    "bulma": "^0.9.3"
+  }
 }
