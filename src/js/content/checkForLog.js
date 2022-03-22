@@ -9,9 +9,7 @@ let intervalId = setInterval(() => {
   let logContainer = document.querySelector('#Foundation_Elemental_1_log');
   if (logContainer) {
     console.log(`Log found for game ${gameId}`);
-    browser.runtime.sendMessage({
-      logFound: true,
-    });
+    browser.runtime.sendMessage({ logFound: true });
     clearInterval(intervalId);
   } else {
     console.log(`Log not found for game ${gameId}`);
