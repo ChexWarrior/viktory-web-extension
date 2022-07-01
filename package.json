@@ -4,7 +4,7 @@
   "description": "Web extension for scraping Viktory 2 GamesByEmail games",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
