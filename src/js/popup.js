@@ -1,4 +1,4 @@
-import { LogScraper } from "/src/js/modules/logScraper.js";
+import { LogScraper } from "/src/js/modules/logScraper.mjs";
 
 const gameLogSelect = document.querySelector('#gameLogs');
 const gameLogScraper = new LogScraper(gameLogSelect);
