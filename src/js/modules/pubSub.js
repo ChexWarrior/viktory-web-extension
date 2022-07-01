@@ -35,6 +35,10 @@ class PubSub {
   }
 
   publish(topic, info) {
+    if (!this.topics.has(topic)) return;
 
+    this.topics.get(topic).forEach(function(listener) {
+      listener();
+    });
   }
 }
