@@ -28,9 +28,16 @@ class LogScraper {
           }
         }
 
+        // Setup Scrape action if valid game logs found
         if (this.options.length > 0) {
           targetSelect.append(...this.options);
           scrapeBtn.disabled = false;
+          scrapeBtn.addEventListener('submit', function(e) {
+            // Insert content script to scrape log
+            // Send raw log to backend
+            // Receive formatted log and add a new row to LogList component via event
+          });
+
           return;
         }
 
