@@ -4,7 +4,7 @@
   "description": "Web extension for scraping Viktory 2 GamesByEmail games",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/ChexWarrior/viktory-web-extension#readme",
   "dependencies": {
     "bulma": "^0.9.3"
+  },
+  "devDependencies": {
+    "jasmine": "^4.2.1"
   }
 }
