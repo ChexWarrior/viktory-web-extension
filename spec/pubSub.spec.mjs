@@ -16,4 +16,14 @@ describe('Testing PubSub class', function() {
 
     expect(index).toBe(1);
   });
+
+  it('Publishing a topic runs all listeners', function() {
+    const pubSub = new PubSub();
+    let count = 0;
+    pubSub.subscribe('event', () => count += 1);
+    pubSub.subscribe('event', () => count += 2);
+    pubSub.publish('event');
+    
+    expect(count).toBe(3);
+  });
 });
