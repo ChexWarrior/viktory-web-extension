@@ -32,7 +32,6 @@ class LogScraper {
           return;
         }
 
-        // TODO: This should be an event...
         // Remove badge text if no game logs found
         browser.browserAction.setBadgeText({
           text: ''
