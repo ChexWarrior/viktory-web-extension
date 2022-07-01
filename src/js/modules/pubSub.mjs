@@ -42,11 +42,11 @@ class PubSub {
     return this.topics.delete(topic);
   }
 
-  publish(topic, info) {
+  publish(topic, info = {}) {
     if (!this.topics.has(topic)) return;
 
     this.topics.get(topic).forEach(function(listener) {
-      listener();
+      listener(info);
     });
   }
 }
