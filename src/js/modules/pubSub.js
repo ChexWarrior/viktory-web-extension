@@ -50,3 +50,5 @@ class PubSub {
     });
   }
 }
+
+export { PubSub };
