@@ -1,13 +1,22 @@
 class LogScraper {
   /**
    *
-   * @param HTMLSelectElement targetSelect
-   * @param HTMLButtonElement scrapeBtn
+   * @param HTMLFormElement targetForm
    * @param RegExp titleRegex
    */
-  constructor(targetSelect, scrapeBtn, titleRegex = /^(.+) - Game Log/) {
+  constructor(targetForm, titleRegex = /^(.+) - Game Log/) {
     // Represent <option> elements holding game titles
     this.options = [];
+    this.logSelect = targetForm.querySelector('select');
+    this.scrapeBtn = targetForm.querySelector('button');
+
+    if (!this.logSelect) {
+      throw new Error('Could not create logSelect property!');
+    }
+
+    if (!this.scrapeBtn) {
+      throw new Error('Could not create scrapeBtn property!');
+    }
 
     // Build out component
     browser.windows.getAll({
@@ -30,9 +39,10 @@ class LogScraper {
 
         // Setup Scrape action if valid game logs found
         if (this.options.length > 0) {
-          targetSelect.append(...this.options);
-          scrapeBtn.disabled = false;
-          scrapeBtn.addEventListener('submit', function(e) {
+          this.logSelect.append(...this.options);
+          this.scrapeBtn.disabled = false;
+          this.scrapeBtn.addEventListener('click', function(event) {
+            event.preventDefault();
             // Insert content script to scrape log
             // Send raw log to backend
             // Receive formatted log and add a new row to LogList component via event

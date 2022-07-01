@@ -1,8 +1,7 @@
 import { LogScraper } from "/src/js/modules/logScraper.mjs";
 
-const gameLogSelect = document.querySelector('#gameLogs');
-const scrapeBtn = document.querySelector('#scrapeBtn');
-const gameLogScraper = new LogScraper(gameLogSelect, scrapeBtn);
+const scrapeForm = document.querySelector('#scrapeForm');
+const gameLogScraper = new LogScraper(scrapeForm);
 
 // scrapeBtn.addEventListener('click', function(e) {
 //   browser.windows.getAll({ populate: true })
