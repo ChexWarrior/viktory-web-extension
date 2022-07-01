@@ -2,9 +2,10 @@ class LogScraper {
   /**
    *
    * @param HTMLSelectElement targetSelect
+   * @param HTMLButtonElement scrapeBtn
    * @param RegExp titleRegex
    */
-  constructor(targetSelect, titleRegex = /^(.+) - Game Log/) {
+  constructor(targetSelect, scrapeBtn, titleRegex = /^(.+) - Game Log/) {
     // Represent <option> elements holding game titles
     this.options = [];
 
@@ -29,6 +30,7 @@ class LogScraper {
 
         if (this.options.length > 0) {
           targetSelect.append(...this.options);
+          scrapeBtn.disabled = false;
           return;
         }
 
