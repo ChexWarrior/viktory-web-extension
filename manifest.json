@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Viktory 2 Scraper",
   "version": "1.0",
-  "description": "Scrapes information from GamesByEmail Viktory 2 game to create a story and various stats.",
+  "description": "Scrapes information from GamesByEmail Viktory 2 games",
   "icons": {
     "48": "icon.svg",
     "96": "icon.svg"
