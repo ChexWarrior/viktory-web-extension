@@ -18,5 +18,8 @@
   "homepage": "https://github.com/ChexWarrior/viktory-web-extension#readme",
   "dependencies": {
     "bulma": "^0.9.3"
+  },
+  "devDependencies": {
+    "jasmine": "^4.2.1"
   }
 }
