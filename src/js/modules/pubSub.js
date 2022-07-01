@@ -18,7 +18,7 @@ class PubSub {
     return index;
   }
 
-  remove(topic, index) {
+  removeListener(topic, index) {
     if (index < 0 || !this.topics.has(topic)) {
       return false;
     }
@@ -32,6 +32,14 @@ class PubSub {
     currentListeners = currentListeners.splice(index, 1);
 
     return true;
+  }
+
+  removeTopic(topic) {
+    if (!this.topics.has(topic)) {
+      return false;
+    }
+
+    return this.topics.delete(topic);
   }
 
   publish(topic, info) {
