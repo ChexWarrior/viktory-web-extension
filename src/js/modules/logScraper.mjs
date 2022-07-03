@@ -41,9 +41,21 @@ class LogScraper {
         if (this.options.length > 0) {
           this.logSelect.append(...this.options);
           this.scrapeBtn.disabled = false;
-          this.scrapeBtn.addEventListener('click', function(event) {
-            event.preventDefault();
+
+          targetForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const targetLogWindowId = this.logSelect.selectedOptions[0].value;
+            console.log(targetLogWindowId);
             // Insert content script to scrape log
+            browser.tabs.executeScript(
+              parseInt(targetLogWindowId, 10),
+              {
+                code: `document.querySelector('#Foundation_Elemental_1_log').innerHTML;`
+              }
+            ).then(results => {
+              console.dir(results);
+            });
+
             // Send raw log to backend
             // Receive formatted log and add a new row to LogList component via event
           });
