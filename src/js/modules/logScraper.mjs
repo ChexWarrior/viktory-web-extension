@@ -53,11 +53,12 @@ class LogScraper {
                 code: `document.querySelector('#Foundation_Elemental_1_log').innerHTML;`
               }
             ).then(results => {
-              console.dir(results);
-            });
+              let [log] = results;
+              console.log(`Log Parsed:\n${log}`);
 
-            // Send raw log to backend
-            // Receive formatted log and add a new row to LogList component via event
+              // TODO: Send raw log to backend
+              // TODO: Receive formatted log and add a new row to LogList component via event
+            });
           });
 
           return;
