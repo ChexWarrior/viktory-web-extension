@@ -44,14 +44,15 @@ class LogScraper {
 
           targetForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const targetLogWindowId = this.logSelect.selectedOptions[0].value;
+
+            // Grab window id of selected game log
+            const targetLogWindowId = parseInt(this.logSelect.selectedOptions[0].value, 10);
             console.log(targetLogWindowId);
+
             // Insert content script to scrape log
             browser.tabs.executeScript(
-              parseInt(targetLogWindowId, 10),
-              {
-                code: `document.querySelector('#Foundation_Elemental_1_log').innerHTML;`
-              }
+              targetLogWindowId,
+              { code: `document.querySelector('#Foundation_Elemental_1_log').innerHTML;` }
             ).then(results => {
               let [log] = results;
               console.log(`Log Parsed:\n${log}`);
