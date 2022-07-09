@@ -4,15 +4,21 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viktory Scraper</title>
+  <title>Viktory Extension</title>
   <script type="module" src="/src/js/popup.js"></script>
   <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
 </head>
 <body>
   <main class="section">
     <div class="container">
-      <h1 class="title">Viktory Scraper</h1>
-      <form id="scrapeForm">
+      <h1 class="title">Viktory Tool</h1>
+      <div class="tabs is-toggle">
+        <ul>
+          <li class="is-active" data-tab-control="1"><a>Game Log</a></li>
+          <li data-tab-control="2"><a>Start Game</a></li>
+        </ul>
+      </div>
+      <form id="scrapeForm" data-tab-body="1">
         <div class="field">
           <div class="select">
             <div class="control">
@@ -28,6 +34,9 @@
           </div>
         </div>
       </form>
+      <div data-tab-body="2" class="is-hidden">
+        Placeholder!
+      </div>
     </div>
   </main>
 </body>

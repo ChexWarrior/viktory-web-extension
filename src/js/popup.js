@@ -1,7 +1,14 @@
+import { TabDisplay } from "/src/js/modules/tabDisplay.mjs";
 import { LogScraper } from "/src/js/modules/logScraper.mjs";
+
+// Setup Tab Toggle
 
 const scrapeForm = document.querySelector('#scrapeForm');
 const gameLogScraper = new LogScraper(scrapeForm);
+const tabDisplay = new TabDisplay(
+  document.querySelector('div.tabs'),
+  document.querySelectorAll('[data-tab-body]'),
+);
 
 // scrapeBtn.addEventListener('click', function(e) {
 //   browser.windows.getAll({ populate: true })
