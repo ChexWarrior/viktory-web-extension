@@ -4,11 +4,15 @@ class LogScraper {
    * @param HTMLFormElement targetForm
    * @param RegExp titleRegex
    */
-  constructor(targetForm, titleRegex = /^(.+) - Game Log/) {
-    // Represent <option> elements holding game titles
+  constructor(targetForm, pubSub, titleRegex = /^(.+) - Game Log/) {
+    this.tabBody = targetForm.dataset.tabBody;
+    this.pubSub = pubSub;
     this.options = [];
-    this.logSelect = targetForm.querySelector('select');
-    this.scrapeBtn = targetForm.querySelector('button');
+    this.form = targetForm;
+    this.logSelect = this.form.querySelector('select');
+    this.scrapeBtn = this.form.querySelector('button');
+
+    this.pubSub.subscribe('tab-change', this.handleTabChange, this);
 
     if (!this.logSelect) {
       throw new Error('Could not create logSelect property!');
@@ -42,7 +46,7 @@ class LogScraper {
           this.logSelect.append(...this.options);
           this.scrapeBtn.disabled = false;
 
-          targetForm.addEventListener('submit', (e) => {
+          this.form.addEventListener('submit', (e) => {
             e.preventDefault();
 
             // Grab window id of selected game log
@@ -70,6 +74,16 @@ class LogScraper {
           text: ''
         });
       });
+  }
+
+  handleTabChange(tabInfo) {
+    let [index] = tabInfo;
+    console.log('hello');
+    if (index === this.tabBody) {
+      this.form.classList.remove('is-hidden');
+    } else {
+      this.form.classList.add('is-hidden');
+    }
   }
 
   /**

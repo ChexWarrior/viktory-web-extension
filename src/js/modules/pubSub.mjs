@@ -4,14 +4,14 @@ class PubSub {
     this.topics = new Map();
   }
 
-  subscribe(topic, listener) {
+  subscribe(topic, listener, that = null) {
     // Create topic if we don't already have it
     if (!this.topics.has(topic)) {
       this.topics.set(topic, []);
     }
 
     const currentListeners = this.topics.get(topic);
-    const index = currentListeners.push(listener) - 1;
+    const index = currentListeners.push({listener, that}) - 1;
     this.topics.set(topic, currentListeners);
 
     // Return index so calling code can remove topic
@@ -45,8 +45,9 @@ class PubSub {
   publish(topic, info = {}) {
     if (!this.topics.has(topic)) return;
 
-    this.topics.get(topic).forEach(function(listener) {
-      listener(info);
+    this.topics.get(topic).forEach(function(listenerInfo) {
+      let { listener, that } = listenerInfo;
+      listener.apply(that, [info]);
     });
   }
 }
