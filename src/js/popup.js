@@ -4,7 +4,6 @@ import { PubSub } from "/src/js/modules/pubSub.mjs";
 import { GameStart } from "/src/js/modules/gameStart.mjs";
 
 const pubSub = new PubSub();
-const gameLogScraper = new LogScraper(document.querySelector('#scrapeForm'), pubSub);
-const gameStart = new GameStart(document.querySelector('#gameStart'), pubSub);
-const tabDisplay = new TabDisplay(document.querySelector('div.tabs'), pubSub);
-
+new LogScraper(document.querySelector('#scrapeForm'), pubSub);
+new GameStart(document.querySelector('#gameStart'), pubSub);
+new TabDisplay(document.querySelector('div.tabs'), pubSub);
