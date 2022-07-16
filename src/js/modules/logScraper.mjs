@@ -1,4 +1,6 @@
-class LogScraper {
+import { TabTarget } from "./tabTarget.mjs";
+
+class LogScraper extends TabTarget {
   /**
    *
    * @param {HTMLFormElement} targetForm
@@ -6,7 +8,7 @@ class LogScraper {
    * @param {RegExp} titleRegex
    */
   constructor(targetForm, pubSub, titleRegex = /^(.+) - Game Log/) {
-    this.tabBody = targetForm.dataset.tabBody;
+    super(targetForm)
     this.pubSub = pubSub;
     this.options = [];
     this.form = targetForm;
@@ -75,16 +77,6 @@ class LogScraper {
           text: ''
         });
       });
-  }
-
-  handleTabChange(tabInfo) {
-    let [index] = tabInfo;
-    console.log('hello');
-    if (index === this.tabBody) {
-      this.form.classList.remove('is-hidden');
-    } else {
-      this.form.classList.add('is-hidden');
-    }
   }
 
   /**
