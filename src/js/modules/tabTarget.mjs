@@ -12,6 +12,11 @@ class TabTarget {
     this.container = container;
     this.tabBody = container.dataset.tabBody;
 
+    // Hide tabBodies that aren't the first tab body
+    if (this.tabBody !== "1") {
+      this.container.classList.add('is-hidden');
+    }
+
     pubSub.subscribe('tab-change', this.handleTabChange, this);
   }
 
