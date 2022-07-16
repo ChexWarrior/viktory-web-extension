@@ -1,8 +1,9 @@
 class LogScraper {
   /**
    *
-   * @param HTMLFormElement targetForm
-   * @param RegExp titleRegex
+   * @param {HTMLFormElement} targetForm
+   * @param {PubSub} pubSub
+   * @param {RegExp} titleRegex
    */
   constructor(targetForm, pubSub, titleRegex = /^(.+) - Game Log/) {
     this.tabBody = targetForm.dataset.tabBody;
