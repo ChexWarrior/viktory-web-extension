@@ -9,7 +9,6 @@ class LogScraper extends TabTarget {
    */
   constructor(targetForm, pubSub, titleRegex = /^(.+) - Game Log/) {
     super(targetForm, pubSub);
-    this.pubSub = pubSub;
     this.options = [];
     this.form = targetForm;
     this.logSelect = this.form.querySelector('select');
