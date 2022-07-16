@@ -8,14 +8,12 @@ class LogScraper extends TabTarget {
    * @param {RegExp} titleRegex
    */
   constructor(targetForm, pubSub, titleRegex = /^(.+) - Game Log/) {
-    super(targetForm)
+    super(targetForm, pubSub);
     this.pubSub = pubSub;
     this.options = [];
     this.form = targetForm;
     this.logSelect = this.form.querySelector('select');
     this.scrapeBtn = this.form.querySelector('button');
-
-    this.pubSub.subscribe('tab-change', this.handleTabChange, this);
 
     if (!this.logSelect) {
       throw new Error('Could not create logSelect property!');

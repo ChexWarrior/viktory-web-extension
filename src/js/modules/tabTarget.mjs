@@ -6,10 +6,13 @@
 class TabTarget {
   /**
    * @param {HTMLElement} container
+   * @param {PubSub} pubSub
    */
-  constructor(container) {
+  constructor(container, pubSub) {
     this.container = container;
     this.tabBody = container.dataset.tabBody;
+
+    pubSub.subscribe('tab-change', this.handleTabChange, this);
   }
 
   handleTabChange(tabInfo) {
