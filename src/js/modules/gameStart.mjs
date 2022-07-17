@@ -17,10 +17,21 @@ class GameStart extends TabTarget {
   }
 
   createGame(event) {
-    // Test: When button clicked we open new viktory game page and fill an input
-    browser.tabs.executeScript({
-      file: '/src/js/content/startNewGame.js'
-    });
+    // Check if we're on the new game page otherwise navigate us there...
+    browser.tabs.executeScript({ file: '/src/js/content/startNewGame.js' })
+      .then(response => {
+        return browser.windows.getCurrent({
+          populate: true
+        });
+      })
+      .then(currentWindow => {
+        const [activeTab] = currentWindow.tabs.filter(t => t.active);
+
+        return browser.tabs.sendMessage(
+          activeTab.id,
+          { greeting: 'This is a message!' },
+        );
+      });
   }
 }
 
