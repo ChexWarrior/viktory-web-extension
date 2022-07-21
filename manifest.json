@@ -8,8 +8,7 @@
     "96": "icon.svg"
   },
   "permissions": [
-    "*://gamesbyemail.com/*",
-    "activeTab"
+    "*://gamesbyemail.com/*"
   ],
   "background": {
     "scripts": ["/src/js/background.js"]
