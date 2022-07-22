@@ -7,6 +7,11 @@
   <title>Viktory Extension</title>
   <script type="module" src="/src/js/popup.js"></script>
   <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
+  <style>
+    html, body {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
   <main class="section">
@@ -35,6 +40,155 @@
         </div>
       </form>
       <form id="gameStart" data-tab-body="2">
+        <div class="field">
+          <label class="label">Game Title</label>
+          <div class="control">
+            <input name="gameTitle" class="input" type="text">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label"># of Players</label>
+          <div class="control radio-container">
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="2" checked>
+              2
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="3">
+              3
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="4">
+              4
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="5">
+              5
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="6">
+              6
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="7">
+              7
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="8">
+              8
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <div class="field">
+              <div class="field-label is-normal">
+                <label class="label">Player 1</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player1Name" class="input" type="text"
+                          placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player1Email" class="input" type="email"
+                          placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label is-normal">
+                <label class="label">Player 2</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player2Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player2Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label is-normal">
+                <label class="label">Player 3</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player3Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player3Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label is-normal">
+                <label class="label">Player 4</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player4Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player4Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label is-normal">
+                <label class="label">Player 5</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player5Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player5Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label is-normal">
+                <label class="label">Player 6</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player6Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player6Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label is-normal">
+                <label class="label">Player 7</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player7Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player7Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label is-normal">
+                <label class="label">Player 8</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player8Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player8Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="field">
           <div class="control">
             <button class="button is-link">Start</button>
