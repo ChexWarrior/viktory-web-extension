@@ -8,7 +8,6 @@ class GameStart extends TabTarget {
    */
   constructor(targetForm, pubSub) {
     super(targetForm, pubSub);
-    this.lastTabId = null;
     this.newGameUrl = 'http://gamesbyemail.com/Games/Viktory2';
     this.form = targetForm;
     this.numPlayerContainer = this.form.querySelector('div.numPlayers');
@@ -39,10 +38,6 @@ class GameStart extends TabTarget {
   }
 
   updateNumPlayers(numPlayers) {
-    /**
-    * Show playerInfo fields with a number <= numPlayers and
-    * hide those with a number > numPlayers
-    */
     this.playerInfoFields.forEach(field => {
       const playerNum = parseInt(field.dataset.playerInfo, 10);
 
@@ -65,14 +60,15 @@ class GameStart extends TabTarget {
     })
     .then(tab => {
       // Inject script that setups listner
-      this.lastTabId = tab.id;
-      return browser.tabs.executeScript(tab.id, {
+      const runScript = browser.tabs.executeScript(tab.id, {
         file: '/src/js/content/startGame.js',
       });
+
+      return Promise.all([runScript, tab.id]);
     })
-    .then(results => {
+    .then(([results, tabId]) => {
       // Trigger form submit via message
-      return browser.tabs.sendMessage(this.lastTabId, {
+      return browser.tabs.sendMessage(tabId, {
         message: 'hello content script!',
       });
     });
