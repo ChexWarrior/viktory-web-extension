@@ -9,15 +9,14 @@ class GameStart extends TabTarget {
   constructor(targetForm, pubSub) {
     super(targetForm, pubSub);
     this.newGameUrl = 'http://gamesbyemail.com/Games/Viktory2';
-    this.form = targetForm;
-    this.numPlayerContainer = this.form.querySelector('div.numPlayers');
-    this.playerInfoFields = this.form.querySelectorAll('div[data-player-info]');
+    this.numPlayerContainer = targetForm.querySelector('div.numPlayers');
+    this.playerInfoFields = targetForm.querySelectorAll('div[data-player-info]');
 
     // Setup event handlers
     pubSub.subscribe('numPlayersChanged', this.updateNumPlayers, this);
 
     // Submit form
-    this.form.addEventListener('submit', (event) => {
+    targetForm.addEventListener('submit', (event) => {
       event.preventDefault();
       this.createGame(event);
     });
