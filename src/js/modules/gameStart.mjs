@@ -47,10 +47,12 @@ class GameStart extends TabTarget {
       const playerNum = parseInt(field.dataset.playerInfo, 10);
 
       if (playerNum <= numPlayers) {
+        field.disabled = false;
         field.classList.remove('is-hidden');
         return;
       }
 
+      field.disabled = true;
       field.classList.add('is-hidden');
     });
   }
