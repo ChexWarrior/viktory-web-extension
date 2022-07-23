@@ -66,11 +66,26 @@ class GameStart extends TabTarget {
       return Promise.all([runScript, tab.id]);
     })
     .then(([results, tabId]) => {
-      // Trigger form submit via message
+      // Send form values to content script
       return browser.tabs.sendMessage(tabId, {
-        message: 'hello content script!',
+        message: this.getNewGameValues(event.target),
       });
     });
+  }
+
+  getNewGameValues({ elements }) {
+    const newGameInfo = {};
+    newGameInfo.title = elements.namedItem('gameTitle').value;
+    newGameInfo.numPlayers = elements.namedItem('numPlayers').value;
+    newGameInfo.playerInfo = [];
+    for (let i = 1; i <= newGameInfo.numPlayers; i += 1) {
+      newGameInfo.playerInfo[i] = {
+        name: elements.namedItem(`player${i}Name`).value,
+        email: elements.namedItem(`player${i}Email`).value,
+      };
+    }
+
+    return newGameInfo;
   }
 }
 
