@@ -67,9 +67,7 @@ class GameStart extends TabTarget {
     })
     .then(([results, tabId]) => {
       // Send form values to content script
-      return browser.tabs.sendMessage(tabId, {
-        message: this.getNewGameValues(event.target),
-      });
+      return browser.tabs.sendMessage(tabId, this.getNewGameValues(event.target));
     });
   }
 
