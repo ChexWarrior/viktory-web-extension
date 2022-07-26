@@ -75,6 +75,7 @@ class GameStart extends TabTarget {
     const newGameInfo = {};
     newGameInfo.title = elements.namedItem('gameTitle').value;
     newGameInfo.numPlayers = elements.namedItem('numPlayers').value;
+    newGameInfo.currentPlayer = elements.namedItem('currentPlayer').value;
     newGameInfo.playerInfo = [];
     for (let i = 1; i <= newGameInfo.numPlayers; i += 1) {
       newGameInfo.playerInfo[i] = {
