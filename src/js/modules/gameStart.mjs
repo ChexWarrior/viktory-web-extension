@@ -14,11 +14,29 @@ class GameStart extends TabTarget {
 
     // Setup event handlers
     pubSub.subscribe('numPlayersChanged', this.updateNumPlayers, this);
+    pubSub.subscribe('changeOrderStart', this.dragStartPlayerInfo, this);
+    pubSub.subscribe('changeOrderOver', this.dragOverPlayerInfo, this);
+    pubSub.subscribe('changeOrderDrop', this.dropPlayerInfo, this);
 
     // Submit form
     targetForm.addEventListener('submit', (event) => {
       event.preventDefault();
       this.createGame(event);
+    });
+
+    // Setup events for changing player order (drag/drop)
+    this.playerInfoFields.forEach(playerInfo => {
+      playerInfo.addEventListener('dragstart', event => {
+        pubSub.publish('changeOrderStart', { playerInfo, event });
+      });
+
+      playerInfo.addEventListener('dragover', event => {
+        pubSub.publish('changeOrderOver', { playerInfo, event });
+      });
+
+      playerInfo.addEventListener('drop', event => {
+        pubSub.publish('changeOrderDrop', { playerInfo, event });
+      });
     });
 
     // Change number of players
@@ -34,6 +52,21 @@ class GameStart extends TabTarget {
     // Handle the initial number of players
     let initialNumPlayers = this.numPlayerContainer.querySelector('input[checked]').value;
     pubSub.publish('numPlayersChanged', initialNumPlayers);
+  }
+
+  dragStartPlayerInfo({ playerInfo, event }) {
+    event.dataTransfer.dropEffect = "link";
+    console.log('Drag!');
+  }
+
+  dragOverPlayerInfo({ playerInfo, event }) {
+    event.preventDefault();
+    console.log('Drag over');
+  }
+
+  dropPlayerInfo({ playerInfo, event }) {
+    event.preventDefault();
+    console.log('Drop!');
   }
 
   updateNumPlayers(numPlayers) {
