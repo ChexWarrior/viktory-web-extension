@@ -27,15 +27,15 @@ class GameStart extends TabTarget {
     // Setup events for changing player order (drag/drop)
     this.playerInfoFields.forEach(playerInfo => {
       playerInfo.addEventListener('dragstart', event => {
-        pubSub.publish('changeOrderStart', { playerInfo, event });
+        pubSub.publish('changeOrderStart', event);
       });
 
       playerInfo.addEventListener('dragover', event => {
-        pubSub.publish('changeOrderOver', { playerInfo, event });
+        pubSub.publish('changeOrderOver', event);
       });
 
       playerInfo.addEventListener('drop', event => {
-        pubSub.publish('changeOrderDrop', { playerInfo, event });
+        pubSub.publish('changeOrderDrop', event);
       });
     });
 
@@ -54,19 +54,50 @@ class GameStart extends TabTarget {
     pubSub.publish('numPlayersChanged', initialNumPlayers);
   }
 
-  dragStartPlayerInfo({ playerInfo, event }) {
-    event.dataTransfer.dropEffect = "link";
+  dragStartPlayerInfo(event) {
     console.log('Drag!');
+    event.dataTransfer.dropEffect = "link";
+    event.dataTransfer.effectAllowed = "copyLink";
+
+    event.dataTransfer.setData('text/plain', event.currentTarget.dataset.playerInfo);
   }
 
-  dragOverPlayerInfo({ playerInfo, event }) {
+  dragOverPlayerInfo(event) {
     event.preventDefault();
     console.log('Drag over');
   }
 
-  dropPlayerInfo({ playerInfo, event }) {
+  dropPlayerInfo(event) {
     event.preventDefault();
     console.log('Drop!');
+    const incomingPlayerOrder = event.dataTransfer.getData('text/plain');
+    const targetPlayerOrder = event.currentTarget.dataset.playerInfo;
+
+    const incomingPlayerInfo = document.querySelector(`div[data-player-info="${incomingPlayerOrder}"]`);
+    const targetPlayerInfo = document.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
+
+    const incomingPlayerName = incomingPlayerInfo.querySelector('input[type="text"]');
+    const incomingPlayerEmail = incomingPlayerInfo.querySelector('input[type="email"]');
+    const incomingPlayerIsCurrentPlayer = incomingPlayerInfo.querySelector('input[type="radio"]');
+
+    const incomingPlayerData = {
+      name: incomingPlayerName.value,
+      email: incomingPlayerEmail.value,
+      current: incomingPlayerIsCurrentPlayer.checked
+    };
+
+    const targetPlayerName = targetPlayerInfo.querySelector('input[type="text"]');
+    const targetPlayerEmail = targetPlayerInfo.querySelector('input[type="email"]');
+    const targetPlayerIsCurrentPlayer = targetPlayerInfo.querySelector('input[type="radio"]');
+
+    // Swap values
+    incomingPlayerEmail.value = targetPlayerEmail.value;
+    incomingPlayerName.value = targetPlayerName.value;
+    incomingPlayerIsCurrentPlayer.checked = targetPlayerIsCurrentPlayer.checked;
+    targetPlayerName.value = incomingPlayerData.name;
+    targetPlayerEmail.value = incomingPlayerData.email;
+    targetPlayerIsCurrentPlayer.checked = incomingPlayerData.current;
+
   }
 
   updateNumPlayers(numPlayers) {
