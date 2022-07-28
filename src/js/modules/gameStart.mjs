@@ -8,6 +8,7 @@ class GameStart extends TabTarget {
    */
   constructor(targetForm, pubSub) {
     super(targetForm, pubSub);
+    this.newGameForm = targetForm;
     this.newGameUrl = 'http://gamesbyemail.com/Games/Viktory2';
     this.numPlayerContainer = targetForm.querySelector('div.numPlayers');
     this.playerInfoFields = targetForm.querySelectorAll('div[data-player-info]');
@@ -73,8 +74,8 @@ class GameStart extends TabTarget {
     const draggedPlayerOrder = event.dataTransfer.getData('text/plain');
     const targetPlayerOrder = event.currentTarget.dataset.playerInfo;
 
-    const draggedPlayerContainer = document.querySelector(`div[data-player-info="${draggedPlayerOrder}"]`);
-    const targetPlayerContainer = document.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
+    const draggedPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${draggedPlayerOrder}"]`);
+    const targetPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
 
     const draggedPlayerData = this.getPlayerInfo(draggedPlayerContainer);
     const targetPlayerData = this.getPlayerInfo(targetPlayerContainer);
