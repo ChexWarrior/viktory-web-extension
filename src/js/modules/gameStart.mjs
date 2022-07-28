@@ -70,34 +70,36 @@ class GameStart extends TabTarget {
   dropPlayerInfo(event) {
     event.preventDefault();
     console.log('Drop!');
-    const incomingPlayerOrder = event.dataTransfer.getData('text/plain');
+    const draggedPlayerOrder = event.dataTransfer.getData('text/plain');
     const targetPlayerOrder = event.currentTarget.dataset.playerInfo;
 
-    const incomingPlayerInfo = document.querySelector(`div[data-player-info="${incomingPlayerOrder}"]`);
-    const targetPlayerInfo = document.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
+    const draggedPlayerContainer = document.querySelector(`div[data-player-info="${draggedPlayerOrder}"]`);
+    const targetPlayerContainer = document.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
 
-    const incomingPlayerName = incomingPlayerInfo.querySelector('input[type="text"]');
-    const incomingPlayerEmail = incomingPlayerInfo.querySelector('input[type="email"]');
-    const incomingPlayerIsCurrentPlayer = incomingPlayerInfo.querySelector('input[type="radio"]');
-
-    const incomingPlayerData = {
-      name: incomingPlayerName.value,
-      email: incomingPlayerEmail.value,
-      current: incomingPlayerIsCurrentPlayer.checked
-    };
-
-    const targetPlayerName = targetPlayerInfo.querySelector('input[type="text"]');
-    const targetPlayerEmail = targetPlayerInfo.querySelector('input[type="email"]');
-    const targetPlayerIsCurrentPlayer = targetPlayerInfo.querySelector('input[type="radio"]');
+    const draggedPlayerData = this.getPlayerInfo(draggedPlayerContainer);
+    const targetPlayerData = this.getPlayerInfo(targetPlayerContainer);
 
     // Swap values
-    incomingPlayerEmail.value = targetPlayerEmail.value;
-    incomingPlayerName.value = targetPlayerName.value;
-    incomingPlayerIsCurrentPlayer.checked = targetPlayerIsCurrentPlayer.checked;
-    targetPlayerName.value = incomingPlayerData.name;
-    targetPlayerEmail.value = incomingPlayerData.email;
-    targetPlayerIsCurrentPlayer.checked = incomingPlayerData.current;
+    this.setPlayerInfo(draggedPlayerContainer, targetPlayerData);
+    this.setPlayerInfo(targetPlayerContainer, draggedPlayerData);
+  }
 
+  /**
+   *
+   * @param {HTMLElement} playerInfoContainer
+   */
+  getPlayerInfo(playerInfoContainer) {
+    return {
+      name: playerInfoContainer.querySelector('input[type="text"]').value,
+      email: playerInfoContainer.querySelector('input[type="email"]').value,
+      current: playerInfoContainer.querySelector('input[type="radio"]').checked,
+    };
+  }
+
+  setPlayerInfo(playerInfoContainer, playerData) {
+    playerInfoContainer.querySelector('input[type="text"]').value = playerData.name;
+    playerInfoContainer.querySelector('input[type="email"]').value = playerData.email;
+    playerInfoContainer.querySelector('input[type="radio"]').checked = playerData.current;
   }
 
   updateNumPlayers(numPlayers) {
