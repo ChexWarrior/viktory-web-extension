@@ -13,12 +13,6 @@ class GameStart extends TabTarget {
     this.numPlayerContainer = targetForm.querySelector('div.numPlayers');
     this.playerInfoFields = targetForm.querySelectorAll('div[data-player-info]');
 
-    // Setup event handlers
-    pubSub.subscribe('numPlayersChanged', this.updateNumPlayers, this);
-    pubSub.subscribe('changeOrderStart', this.dragStartPlayerInfo, this);
-    pubSub.subscribe('changeOrderOver', this.dragOverPlayerInfo, this);
-    pubSub.subscribe('changeOrderDrop', this.dropPlayerInfo, this);
-
     // Submit form
     targetForm.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -27,16 +21,27 @@ class GameStart extends TabTarget {
 
     // Setup events for changing player order (drag/drop)
     this.playerInfoFields.forEach(playerInfo => {
-      playerInfo.addEventListener('dragstart', event => {
-        pubSub.publish('changeOrderStart', event);
+      const playerLabel = playerInfo.querySelector('label.label');
+      playerLabel.addEventListener('dragstart', event => {
+        this.dragStartPlayerInfo(event);
       });
 
-      playerInfo.addEventListener('dragover', event => {
-        pubSub.publish('changeOrderOver', event);
+      playerLabel.addEventListener('dragover', event => {
+        this.dragOverPlayerInfo(event);
       });
 
-      playerInfo.addEventListener('drop', event => {
-        pubSub.publish('changeOrderDrop', event);
+      playerLabel.addEventListener('drop', event => {
+        this.dropPlayerInfo(event);
+      });
+
+      playerLabel.addEventListener('dragenter', event => {
+        console.log('drag enter');
+        this.toggleDragStyle(event);
+      });
+
+      playerLabel.addEventListener('dragleave', event => {
+        console.log('drag leave');
+        this.toggleDragStyle(event);
       });
     });
 
@@ -46,13 +51,13 @@ class GameStart extends TabTarget {
 
       if (target.tagName === 'INPUT') {
         const numPlayers = parseInt(target.value, 10);
-        pubSub.publish('numPlayersChanged', numPlayers);
+        this.updateNumPlayers(numPlayers);
       }
     });
 
     // Handle the initial number of players
     let initialNumPlayers = this.numPlayerContainer.querySelector('input[checked]').value;
-    pubSub.publish('numPlayersChanged', initialNumPlayers);
+    this.updateNumPlayers(initialNumPlayers);
   }
 
   dragStartPlayerInfo(event) {
@@ -60,7 +65,9 @@ class GameStart extends TabTarget {
     event.dataTransfer.dropEffect = "link";
     event.dataTransfer.effectAllowed = "copyLink";
 
-    event.dataTransfer.setData('text/plain', event.currentTarget.dataset.playerInfo);
+    const playerContainer = event.currentTarget.parentElement.parentElement;
+
+    event.dataTransfer.setData('text/plain', playerContainer.dataset.playerInfo);
   }
 
   dragOverPlayerInfo(event) {
@@ -72,7 +79,7 @@ class GameStart extends TabTarget {
     event.preventDefault();
     console.log('Drop!');
     const draggedPlayerOrder = event.dataTransfer.getData('text/plain');
-    const targetPlayerOrder = event.currentTarget.dataset.playerInfo;
+    const targetPlayerOrder = event.currentTarget.parentElement.parentElement.dataset.playerInfo;
 
     const draggedPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${draggedPlayerOrder}"]`);
     const targetPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
@@ -83,7 +90,20 @@ class GameStart extends TabTarget {
     // Swap values
     this.setPlayerInfo(draggedPlayerContainer, targetPlayerData);
     this.setPlayerInfo(targetPlayerContainer, draggedPlayerData);
+
+    targetPlayerContainer.classList.remove('dragged');
   }
+
+  toggleDragStyle(event) {
+    const draggedPlayerNum = event.dataTransfer.getData('text/plain');
+    const playerInfoContainer = event.currentTarget.parentElement.parentElement;
+
+    // Dont show effect if dragging over self
+    if (draggedPlayerNum !== playerInfoContainer.dataset.playerInfo) {
+      console.log('different info...');
+      playerInfoContainer.classList.toggle('dragged');
+    }
+  };
 
   /**
    *
