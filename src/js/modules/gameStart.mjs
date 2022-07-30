@@ -27,15 +27,16 @@ class GameStart extends TabTarget {
 
     // Setup events for changing player order (drag/drop)
     this.playerInfoFields.forEach(playerInfo => {
-      playerInfo.addEventListener('dragstart', event => {
+      const playerLabel = playerInfo.querySelector('label.label');
+      playerLabel.addEventListener('dragstart', event => {
         pubSub.publish('changeOrderStart', event);
       });
 
-      playerInfo.addEventListener('dragover', event => {
+      playerLabel.addEventListener('dragover', event => {
         pubSub.publish('changeOrderOver', event);
       });
 
-      playerInfo.addEventListener('drop', event => {
+      playerLabel.addEventListener('drop', event => {
         pubSub.publish('changeOrderDrop', event);
       });
     });
@@ -60,7 +61,9 @@ class GameStart extends TabTarget {
     event.dataTransfer.dropEffect = "link";
     event.dataTransfer.effectAllowed = "copyLink";
 
-    event.dataTransfer.setData('text/plain', event.currentTarget.dataset.playerInfo);
+    const playerContainer = event.currentTarget.parentElement.parentElement;
+
+    event.dataTransfer.setData('text/plain', playerContainer.dataset.playerInfo);
   }
 
   dragOverPlayerInfo(event) {
@@ -72,7 +75,7 @@ class GameStart extends TabTarget {
     event.preventDefault();
     console.log('Drop!');
     const draggedPlayerOrder = event.dataTransfer.getData('text/plain');
-    const targetPlayerOrder = event.currentTarget.dataset.playerInfo;
+    const targetPlayerOrder = event.currentTarget.parentElement.parentElement.dataset.playerInfo;
 
     const draggedPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${draggedPlayerOrder}"]`);
     const targetPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
