@@ -33,6 +33,16 @@ class GameStart extends TabTarget {
       playerLabel.addEventListener('drop', event => {
         this.dropPlayerInfo(event);
       });
+
+      playerLabel.addEventListener('dragenter', event => {
+        console.log('drag enter');
+        this.toggleDragStyle(event);
+      });
+
+      playerLabel.addEventListener('dragleave', event => {
+        console.log('drag leave');
+        this.toggleDragStyle(event);
+      });
     });
 
     // Change number of players
@@ -80,7 +90,20 @@ class GameStart extends TabTarget {
     // Swap values
     this.setPlayerInfo(draggedPlayerContainer, targetPlayerData);
     this.setPlayerInfo(targetPlayerContainer, draggedPlayerData);
+
+    targetPlayerContainer.classList.remove('dragged');
   }
+
+  toggleDragStyle(event) {
+    const draggedPlayerNum = event.dataTransfer.getData('text/plain');
+    const playerInfoContainer = event.currentTarget.parentElement.parentElement;
+
+    // Dont show effect if dragging over self
+    if (draggedPlayerNum !== playerInfoContainer.dataset.playerInfo) {
+      console.log('different info...');
+      playerInfoContainer.classList.toggle('dragged');
+    }
+  };
 
   /**
    *
