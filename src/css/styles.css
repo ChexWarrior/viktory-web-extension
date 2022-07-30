@@ -1,0 +1,7 @@
+div[data-player-info].dragged {
+  border: 1px dashed;
+}
+
+div[data-player-info].dragged label.label {
+  text-decoration: underline;
+}
