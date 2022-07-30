@@ -13,12 +13,6 @@ class GameStart extends TabTarget {
     this.numPlayerContainer = targetForm.querySelector('div.numPlayers');
     this.playerInfoFields = targetForm.querySelectorAll('div[data-player-info]');
 
-    // Setup event handlers
-    pubSub.subscribe('numPlayersChanged', this.updateNumPlayers, this);
-    pubSub.subscribe('changeOrderStart', this.dragStartPlayerInfo, this);
-    pubSub.subscribe('changeOrderOver', this.dragOverPlayerInfo, this);
-    pubSub.subscribe('changeOrderDrop', this.dropPlayerInfo, this);
-
     // Submit form
     targetForm.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -29,15 +23,15 @@ class GameStart extends TabTarget {
     this.playerInfoFields.forEach(playerInfo => {
       const playerLabel = playerInfo.querySelector('label.label');
       playerLabel.addEventListener('dragstart', event => {
-        pubSub.publish('changeOrderStart', event);
+        this.dragStartPlayerInfo(event);
       });
 
       playerLabel.addEventListener('dragover', event => {
-        pubSub.publish('changeOrderOver', event);
+        this.dragOverPlayerInfo(event);
       });
 
       playerLabel.addEventListener('drop', event => {
-        pubSub.publish('changeOrderDrop', event);
+        this.dropPlayerInfo(event);
       });
     });
 
@@ -47,13 +41,13 @@ class GameStart extends TabTarget {
 
       if (target.tagName === 'INPUT') {
         const numPlayers = parseInt(target.value, 10);
-        pubSub.publish('numPlayersChanged', numPlayers);
+        this.updateNumPlayers(numPlayers);
       }
     });
 
     // Handle the initial number of players
     let initialNumPlayers = this.numPlayerContainer.querySelector('input[checked]').value;
-    pubSub.publish('numPlayersChanged', initialNumPlayers);
+    this.updateNumPlayers(initialNumPlayers);
   }
 
   dragStartPlayerInfo(event) {
