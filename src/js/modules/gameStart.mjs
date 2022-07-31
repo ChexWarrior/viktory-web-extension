@@ -167,10 +167,10 @@ class GameStart extends TabTarget {
     newGameInfo.numPlayers = elements.namedItem('numPlayers').value;
     newGameInfo.currentPlayer = elements.namedItem('currentPlayer').value;
     newGameInfo.playerInfo = [];
-    for (let i = 1; i <= newGameInfo.numPlayers; i += 1) {
+    for (let i = 0; i < newGameInfo.numPlayers; i += 1) {
       newGameInfo.playerInfo[i] = {
-        name: elements.namedItem(`player${i}Name`).value,
-        email: elements.namedItem(`player${i}Email`).value,
+        name: elements.namedItem(`player${i + 1}Name`).value,
+        email: elements.namedItem(`player${i + 1}Email`).value,
       };
     }
 

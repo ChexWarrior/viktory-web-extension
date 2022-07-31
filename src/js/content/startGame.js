@@ -60,8 +60,10 @@ browser.runtime.onMessage.addListener((gameInfo, sender) => {
   }
 
   // If user is playing we need to click their user first
-  setPlayerInfo(playerInfo[currentPlayer], currentPlayer - 1);
-  playerInfo.forEach((info, index) => {
-    if (index + 1 !== currentPlayer) setPlayerInfo(info, index - 1);
-  });
+  setPlayerInfo(playerInfo[currentPlayer], currentPlayer);
+  setTimeout(() => {
+    playerInfo.forEach((info, index) => {
+      if (index !== currentPlayer) setPlayerInfo(info, index);
+    });
+  }, 100)
 });
