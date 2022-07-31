@@ -18,23 +18,28 @@ function setPlayerInfo(playerInfo, index) {
       // Need to wait for click to take effect
       const interval2 = setInterval(() => {
         // Set info
+        console.log('Fill out player info...');
         const nameInput = document.querySelector(`${nameTemplate}${index}`);
         const emailInput = document.querySelector(`${emailTemplate}${index}`);
 
         if (nameInput && emailInput) {
           nameInput.value = playerInfo.name;
+          nameInput.dispatchEvent(new Event('keyup'));
+          nameInput.dispatchEvent(new Event('change'));
           emailInput.value = playerInfo.email;
+          emailInput.dispatchEvent(new Event('keyup'));
+          emailInput.dispatchEvent(new Event('change'));
           clearInterval(interval2);
         }
       }, 100);
     }
   }, 100);
-
 }
 
 // Setup listener from gameStart component
 browser.runtime.onMessage.addListener((gameInfo, sender) => {
-  const { title, numPlayers, playerInfo, currentPlayer } = gameInfo;
+  const { title, numPlayers, playerInfo } = gameInfo;
+  let { currentPlayer } = gameInfo;
 
   // Grab page form elements
   const gameTitleInput = document.querySelector('#Foundation_Elemental_5_GameTitle');
@@ -44,12 +49,18 @@ browser.runtime.onMessage.addListener((gameInfo, sender) => {
   gameTitleInput.value = title;
   numPlayerInput.click();
 
-  // If user is playing we need to click their user first
-  // TODO: Handle when user isn't playing
-  if (currentPlayer > 0) {
-    setPlayerInfo(playerInfo[currentPlayer], currentPlayer - 1);
+  /**
+   * If the user isn't playing we need to ensure we DON'T click
+   * the first user since that will allow the current user to
+   * actually play another players first turn!
+   */
+  if (currentPlayer < 1) {
+    console.log('User is not playing this game!');
+    currentPlayer = 1;
   }
 
+  // If user is playing we need to click their user first
+  setPlayerInfo(playerInfo[currentPlayer], currentPlayer - 1);
   playerInfo.forEach((info, index) => {
     if (index + 1 !== currentPlayer) setPlayerInfo(info, index - 1);
   });
