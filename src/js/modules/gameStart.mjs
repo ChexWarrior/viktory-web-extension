@@ -81,17 +81,20 @@ class GameStart extends TabTarget {
     const draggedPlayerOrder = event.dataTransfer.getData('text/plain');
     const targetPlayerOrder = event.currentTarget.parentElement.parentElement.dataset.playerInfo;
 
-    const draggedPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${draggedPlayerOrder}"]`);
-    const targetPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
+    if (draggedPlayerOrder !== targetPlayerOrder) {
+      const draggedPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${draggedPlayerOrder}"]`);
+      const targetPlayerContainer = this.newGameForm.querySelector(`div[data-player-info="${targetPlayerOrder}"]`);
 
-    const draggedPlayerData = this.getPlayerInfo(draggedPlayerContainer);
-    const targetPlayerData = this.getPlayerInfo(targetPlayerContainer);
+      const draggedPlayerData = this.getPlayerInfo(draggedPlayerContainer);
+      const targetPlayerData = this.getPlayerInfo(targetPlayerContainer);
 
-    // Swap values
-    this.setPlayerInfo(draggedPlayerContainer, targetPlayerData);
-    this.setPlayerInfo(targetPlayerContainer, draggedPlayerData);
+      // Swap values
+      this.setPlayerInfo(draggedPlayerContainer, targetPlayerData);
+      this.setPlayerInfo(targetPlayerContainer, draggedPlayerData);
 
-    targetPlayerContainer.classList.remove('dragged');
+      // Remove any drag/drop styles on target
+      targetPlayerContainer.classList.remove('dragged');
+    }
   }
 
   toggleDragStyle(event) {
