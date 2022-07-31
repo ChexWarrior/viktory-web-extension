@@ -1,5 +1,10 @@
+div[data-player-info] {
+  padding: 2px;
+}
+
+/* Drag & Drop Styles */
 div[data-player-info].dragged {
-  border: 1px dashed;
+  border: 2px dashed red;
 }
 
 div[data-player-info].dragged label.label {
