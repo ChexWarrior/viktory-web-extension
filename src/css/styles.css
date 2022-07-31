@@ -2,6 +2,14 @@ div[data-player-info] {
   padding: 2px;
 }
 
+i {
+  pointer-events: none;
+}
+
+i, label.label {
+  cursor: grab;
+}
+
 /* Drag & Drop Styles */
 div[data-player-info].dragged {
   border: 2px dashed red;
