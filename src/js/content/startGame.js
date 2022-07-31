@@ -1,15 +1,35 @@
 console.log('start new game script called...');
+
 const playerBtnTemplate = '#Foundation_Elemental_5_PlayerInfo_';
 const nameTemplate = '#Foundation_Elemental_5_PlayerTitle_';
 const emailTemplate = '#Foundation_Elemental_5_PlayerId_';
 
 function setPlayerInfo(playerInfo, index) {
-  // Click button
-  document.querySelector(`${playerBtnTemplate}${index}`).click();
+  // Wait for element to exist
+  console.log(`Set info for player ${index}!`);
+  const interval1 = setInterval(() => {
+    console.log('Clicking player button..');
+    const playerBtn = document.querySelector(`${playerBtnTemplate}${index} input`);
 
-  // Set info
-  document.querySelector(`${nameTemplate}${index}`).value = playerInfo.name;
-  document.querySelector(`${emailTemplate}${index}`).value = playerInfo.email;
+    if (playerBtn) {
+      playerBtn.click();
+      clearInterval(interval1);
+
+      // Need to wait for click to take effect
+      const interval2 = setInterval(() => {
+        // Set info
+        const nameInput = document.querySelector(`${nameTemplate}${index}`);
+        const emailInput = document.querySelector(`${emailTemplate}${index}`);
+
+        if (nameInput && emailInput) {
+          nameInput.value = playerInfo.name;
+          emailInput.value = playerInfo.email;
+          clearInterval(interval2);
+        }
+      }, 100);
+    }
+  }, 100);
+
 }
 
 // Setup listener from gameStart component
