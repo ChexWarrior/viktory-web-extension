@@ -54,7 +54,7 @@ browser.runtime.onMessage.addListener((gameInfo, sender) => {
    * the first user since that will allow the current user to
    * actually play another players first turn!
    */
-  if (currentPlayer < 1) {
+  if (currentPlayer < 0) {
     console.log('User is not playing this game!');
     currentPlayer = 1;
   }
