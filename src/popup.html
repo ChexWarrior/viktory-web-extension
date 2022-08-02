@@ -4,15 +4,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viktory Scraper</title>
+  <title>Viktory Extension</title>
   <script type="module" src="/src/js/popup.js"></script>
   <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
+  <!-- TODO: Create kit for only the icons we actually use! -->
+  <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/src/css/styles.css">
 </head>
 <body>
   <main class="section">
     <div class="container">
-      <h1 class="title">Viktory Scraper</h1>
-      <form id="scrapeForm">
+      <h1 class="title has-text-centered is-size-1">Commander</h1>
+      <h2 class="subtitle has-text-centered is-size-5">💥 A Viktory Web Extension 💥</h2>
+      <div class="tabs is-toggle is-centered">
+        <ul>
+          <li class="is-active" data-tab-control="1"><a>Game Log</a></li>
+          <li data-tab-control="2"><a>Start Game</a></li>
+        </ul>
+      </div>
+      <form id="scrapeForm" data-tab-body="1">
         <div class="field">
           <div class="select">
             <div class="control">
@@ -25,6 +35,235 @@
         <div class="field">
           <div class="control">
             <button disabled class="button is-link">Submit</button>
+          </div>
+        </div>
+      </form>
+      <form id="gameStart" data-tab-body="2">
+        <div class="field">
+          <label class="label">Game Title</label>
+          <div class="control">
+            <input name="gameTitle" class="input" type="text">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label"># of Players</label>
+          <div class="control numPlayers">
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="2" checked>
+              2
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="3">
+              3
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="4">
+              4
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="5">
+              5
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="6">
+              6
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="7">
+              7
+            </label>
+            <label class="radio">
+              <input type="radio" name="numPlayers" value="8">
+              8
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <label class="label">Player Information</label>
+            <label class="radio">
+              <input name="currentPlayer" checked class="radio" type="radio" value="-1">
+              I am not playing this game
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <div class="field" data-player-info="1">
+              <div class="field-label is-normal">
+                <label class="label" draggable="true">
+                  <i class="fa-solid fa-grip"></i>
+                  Player 1
+                </label>
+                <label class="radio">
+                  <input name="currentPlayer" class="radio" type="radio"
+                  value="0">
+                  Current Player
+                </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player1Name" class="input" type="text"
+                          placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player1Email" class="input" type="email"
+                          placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field" data-player-info="2">
+              <div class="field-label is-normal">
+                <label class="label" draggable="true">
+                  <i class="fa-solid fa-grip"></i>
+                  Player 2
+                </label>
+                <label class="radio">
+                  <input name="currentPlayer" class="radio" type="radio"
+                  value="1">
+                  Current Player
+                </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player2Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player2Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field" data-player-info="3">
+              <div class="field-label is-normal">
+                <label class="label" draggable="true">
+                  <i class="fa-solid fa-grip"></i>
+                  Player 3
+                </label>
+                <label class="radio">
+                  <input name="currentPlayer" class="radio" type="radio"
+                  value="2">
+                  Current Player
+                </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player3Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player3Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field" data-player-info="4">
+              <div class="field-label is-normal">
+                <label class="label" draggable="true">
+                  <i class="fa-solid fa-grip"></i>
+                  Player 4
+                </label>
+                <label class="radio">
+                  <input name="currentPlayer" class="radio" type="radio"
+                  value="3">
+                  Current Player
+                </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player4Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player4Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field" data-player-info="5">
+              <div class="field-label is-normal">
+                <label class="label" draggable="true">
+                  <i class="fa-solid fa-grip"></i>
+                  Player 5
+                </label>
+                <label class="radio">
+                  <input name="currentPlayer" class="radio" type="radio"
+                  value="4">
+                  Current Player
+                </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player5Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player5Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field" data-player-info="6">
+              <div class="field-label is-normal">
+                <label class="label" draggable="true">
+                  <i class="fa-solid fa-grip"></i>
+                  Player 6
+                </label>
+                <label class="radio">
+                  <input name="currentPlayer" class="radio" type="radio"
+                  value="5">
+                  Current Player
+                </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player6Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player6Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field" data-player-info="7">
+              <div class="field-label is-normal">
+                <label class="label" draggable="true">
+                  <i class="fa-solid fa-grip"></i>
+                  Player 7
+                </label>
+                <label class="radio">
+                  <input name="currentPlayer" class="radio" type="radio"
+                  value="6">
+                  Current Player
+                </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player7Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player7Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="field" data-player-info="8">
+              <div class="field-label is-normal">
+                <label class="label" draggable="true">
+                  <i class="fa-solid fa-grip"></i>
+                  Player 8
+                </label>
+                <label class="radio">
+                  <input name="currentPlayer" class="radio" type="radio"
+                  value="7">
+                  Current Player
+                </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <input name="player8Name" class="input" type="text" placeholder="Name">
+                </div>
+                <div class="field">
+                  <input name="player8Email" class="input" type="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-link">Start</button>
           </div>
         </div>
       </form>

@@ -1,14 +1,18 @@
-class LogScraper {
+import { TabTarget } from "./tabTarget.mjs";
+
+class LogScraper extends TabTarget {
   /**
    *
-   * @param HTMLFormElement targetForm
-   * @param RegExp titleRegex
+   * @param {HTMLFormElement} targetForm
+   * @param {PubSub} pubSub
+   * @param {RegExp} titleRegex
    */
-  constructor(targetForm, titleRegex = /^(.+) - Game Log/) {
-    // Represent <option> elements holding game titles
+  constructor(targetForm, pubSub, titleRegex = /^(.+) - Game Log/) {
+    super(targetForm, pubSub);
     this.options = [];
-    this.logSelect = targetForm.querySelector('select');
-    this.scrapeBtn = targetForm.querySelector('button');
+    this.form = targetForm;
+    this.logSelect = this.form.querySelector('select');
+    this.scrapeBtn = this.form.querySelector('button');
 
     if (!this.logSelect) {
       throw new Error('Could not create logSelect property!');
@@ -42,7 +46,7 @@ class LogScraper {
           this.logSelect.append(...this.options);
           this.scrapeBtn.disabled = false;
 
-          targetForm.addEventListener('submit', (e) => {
+          this.form.addEventListener('submit', (e) => {
             e.preventDefault();
 
             // Grab window id of selected game log
