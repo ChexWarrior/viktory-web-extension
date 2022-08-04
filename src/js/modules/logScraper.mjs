@@ -53,11 +53,6 @@ class LogScraper extends TabTarget {
 
           return;
         }
-
-        // Remove badge text if no game logs found
-        browser.browserAction.setBadgeText({
-          text: ''
-        });
       });
   }
 
