@@ -48,22 +48,7 @@ class LogScraper extends TabTarget {
 
           this.form.addEventListener('submit', (e) => {
             e.preventDefault();
-
-            // Grab window id of selected game log
-            const targetLogWindowId = parseInt(this.logSelect.selectedOptions[0].value, 10);
-            console.log(targetLogWindowId);
-
-            // Insert content script to scrape log
-            browser.tabs.executeScript(
-              targetLogWindowId,
-              { code: `document.querySelector('#Foundation_Elemental_1_log').innerHTML;` }
-            ).then(results => {
-              let [log] = results;
-              console.log(`Log Parsed:\n${log}`);
-
-              // TODO: Send raw log to backend
-              // TODO: Receive formatted log and add a new row to LogList component via event
-            });
+            this.scrapeLog(e);
           });
 
           return;
@@ -74,6 +59,25 @@ class LogScraper extends TabTarget {
           text: ''
         });
       });
+  }
+
+  scrapeLog(event) {
+    // Grab window id of selected game log
+    const targetLogWindowId = parseInt(this.logSelect.selectedOptions[0].value, 10);
+    console.log(targetLogWindowId);
+
+    // Insert content script to scrape log
+    browser.tabs.executeScript(
+      targetLogWindowId, {
+        code: `document.querySelector('#Foundation_Elemental_1_log').innerHTML;`
+      }
+    ).then(results => {
+      let [log] = results;
+      console.log(`Log Parsed:\n${log}`);
+
+      // TODO: Send raw log to backend
+      // TODO: Receive formatted log and add a new row to LogList component via event
+    });
   }
 
   /**
